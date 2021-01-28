@@ -22,9 +22,8 @@ const styles = ({palette, shape, spacing}) => ({
         },
     },
     image: {
-        height: 100,
-        width: 'initial',
-        maxWidth: '100%',
+        maxWidth: '90%',
+        minWidth: '20em',
         color: palette.text.primary,
         transition: 'all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',
         boxSizing: 'border-box',
@@ -37,8 +36,6 @@ const styles = ({palette, shape, spacing}) => ({
         transition: '.5s ease',
         position: 'absolute',
         opacity: 0,
-        top: spacing(-1),
-        right: spacing(-1),
         width: 40,
         height: 40,
         '&:focus': {
@@ -62,16 +59,17 @@ function PreviewList({
         return (
             <Grid
                 spacing={1}
-                direction="row"
+                direction="column"
                 {...previewGridProps.container}
-                container={true}
+                container
                 className={clsx(classes.root, previewGridClasses.container)}
+                justify="center"
             >
                 {fileObjects.map((fileObject, i) => {
                     return (
                         <Grid
                             {...previewGridProps.item}
-                            item={true}
+                            item
                             key={`${fileObject.file?.name ?? 'file'}-${i}`}
                             className={classes.imageContainer}
                         >
@@ -90,17 +88,17 @@ function PreviewList({
 
     return (
         <Grid
-            spacing={8}
+            spacing={2}
             {...previewGridProps.container}
-            container={true}
+            container
+            justify="center"
             className={clsx(classes.root, previewGridClasses.container)}
         >
             {fileObjects.map((fileObject, i) => {
                 return (
                     <Grid
-                        xs={4}
                         {...previewGridProps.item}
-                        item={true}
+                        item
                         key={`${fileObject.file?.name ?? 'file'}-${i}`}
                         className={clsx(classes.imageContainer, previewGridClasses.item)}
                     >

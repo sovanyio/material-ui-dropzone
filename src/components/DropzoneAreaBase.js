@@ -1,3 +1,4 @@
+import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import Typography from '@material-ui/core/Typography';
 import {withStyles} from '@material-ui/core/styles';
@@ -230,58 +231,6 @@ class DropzoneAreaBase extends React.PureComponent {
 
         return (
             <Fragment>
-                <Dropzone
-                    {...dropzoneProps}
-                    accept={acceptFiles}
-                    onDropAccepted={this.handleDropAccepted}
-                    onDropRejected={this.handleDropRejected}
-                    maxSize={maxFileSize}
-                    multiple={isMultiple}
-                >
-                    {({getRootProps, getInputProps, isDragActive, isDragReject}) => (
-                        <div
-                            {...getRootProps({
-                                className: clsx(
-                                    classes.root,
-                                    dropzoneClass,
-                                    isDragActive && classes.active,
-                                    (!disableRejectionFeedback && isDragReject) && classes.invalid,
-                                ),
-                            })}
-                        >
-                            <input {...getInputProps(inputProps)} />
-
-                            <div className={classes.textContainer}>
-                                <Typography
-                                    variant="h5"
-                                    component="p"
-                                    className={clsx(classes.text, dropzoneParagraphClass)}
-                                >
-                                    {dropzoneText}
-                                </Typography>
-                                {Icon ? (
-                                    <Icon className={classes.icon} />
-                                ) : (
-                                    <CloudUploadIcon className={classes.icon} />
-                                )}
-                            </div>
-
-                            {previewsInDropzoneVisible &&
-                                <PreviewList
-                                    fileObjects={fileObjects}
-                                    handleRemove={this.handleRemove}
-                                    getPreviewIcon={getPreviewIcon}
-                                    showFileNames={showFileNames}
-                                    useChipsForPreview={useChipsForPreview}
-                                    previewChipProps={previewChipProps}
-                                    previewGridClasses={previewGridClasses}
-                                    previewGridProps={previewGridProps}
-                                />
-                            }
-                        </div>
-                    )}
-                </Dropzone>
-
                 {previewsVisible &&
                     <Fragment>
                         <Typography variant="subtitle1" component="span">
@@ -317,6 +266,64 @@ class DropzoneAreaBase extends React.PureComponent {
                         />
                     </Snackbar>
                 }
+                <Dropzone
+                    {...dropzoneProps}
+                    accept={acceptFiles}
+                    onDropAccepted={this.handleDropAccepted}
+                    onDropRejected={this.handleDropRejected}
+                    maxSize={maxFileSize}
+                    multiple={isMultiple}
+                >
+                    {({getRootProps, getInputProps, isDragActive, isDragReject}) => (
+                        <div
+                            {...getRootProps({
+                                className: clsx(
+                                    classes.root,
+                                    dropzoneClass,
+                                    isDragActive && classes.active,
+                                    (!disableRejectionFeedback && isDragReject) && classes.invalid,
+                                ),
+                            })}
+                        >
+                            {previewsInDropzoneVisible &&
+                                <PreviewList
+                                    fileObjects={fileObjects}
+                                    handleRemove={this.handleRemove}
+                                    getPreviewIcon={getPreviewIcon}
+                                    showFileNames={showFileNames}
+                                    useChipsForPreview={useChipsForPreview}
+                                    previewChipProps={previewChipProps}
+                                    previewGridClasses={previewGridClasses}
+                                    previewGridProps={previewGridProps}
+                                />
+                            }
+
+                            <input {...getInputProps(inputProps)} />
+
+                            <div className={classes.textContainer}>
+                                {dropzoneText ? (
+                                    <Typography
+                                        variant="h5"
+                                        component="p"
+                                        className={clsx(classes.text, dropzoneParagraphClass)}
+                                    >
+                                        {dropzoneText}
+                                    </Typography>
+                                ) : null}
+                                {Icon ? (
+                                    <Icon className={classes.icon} />
+                                ) : (
+                                    <CloudUploadIcon className={classes.icon} />
+                                )}
+                            </div>
+                        </div>
+                    )}
+                </Dropzone>
+                {fileObjects.length ? (
+                    <Button color="secondary" variant="contained">
+                        Discard &amp; Start Over
+                    </Button>
+                ) : null}
             </Fragment>
         );
     }
