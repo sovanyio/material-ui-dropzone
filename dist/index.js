@@ -16,6 +16,7 @@ var _getPrototypeOf = _interopDefault(require('@babel/runtime/helpers/getPrototy
 var _objectWithoutProperties = _interopDefault(require('@babel/runtime/helpers/objectWithoutProperties'));
 var PropTypes = _interopDefault(require('prop-types'));
 var React = require('react');
+var Button = _interopDefault(require('@material-ui/core/Button'));
 var Snackbar = _interopDefault(require('@material-ui/core/Snackbar'));
 var Typography = _interopDefault(require('@material-ui/core/Typography'));
 var styles$3 = require('@material-ui/core/styles');
@@ -34,7 +35,6 @@ var CloseIcon = _interopDefault(require('@material-ui/icons/Close'));
 var ErrorIcon = _interopDefault(require('@material-ui/icons/Error'));
 var InfoIcon = _interopDefault(require('@material-ui/icons/Info'));
 var WarningIcon = _interopDefault(require('@material-ui/icons/Warning'));
-var Button = _interopDefault(require('@material-ui/core/Button'));
 var Dialog = _interopDefault(require('@material-ui/core/Dialog'));
 var DialogActions = _interopDefault(require('@material-ui/core/DialogActions'));
 var DialogContent = _interopDefault(require('@material-ui/core/DialogContent'));
@@ -132,9 +132,8 @@ var styles = function styles(_ref) {
       }
     },
     image: {
-      height: 100,
-      width: 'initial',
-      maxWidth: '100%',
+      maxWidth: '90%',
+      minWidth: '20em',
       color: palette.text.primary,
       transition: 'all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',
       boxSizing: 'border-box',
@@ -147,8 +146,6 @@ var styles = function styles(_ref) {
       transition: '.5s ease',
       position: 'absolute',
       opacity: 0,
-      top: spacing(-1),
-      right: spacing(-1),
       width: 40,
       height: 40,
       '&:focus': {
@@ -174,10 +171,11 @@ function PreviewList(_ref2) {
   if (useChipsForPreview) {
     return /*#__PURE__*/React.createElement(Grid, _extends({
       spacing: 1,
-      direction: "row"
+      direction: "column"
     }, previewGridProps.container, {
       container: true,
-      className: clsx(classes.root, previewGridClasses.container)
+      className: clsx(classes.root, previewGridClasses.container),
+      justify: "center"
     }), fileObjects.map(function (fileObject, i) {
       var _fileObject$file$name, _fileObject$file;
 
@@ -195,16 +193,15 @@ function PreviewList(_ref2) {
   }
 
   return /*#__PURE__*/React.createElement(Grid, _extends({
-    spacing: 8
+    spacing: 2
   }, previewGridProps.container, {
     container: true,
+    justify: "center",
     className: clsx(classes.root, previewGridClasses.container)
   }), fileObjects.map(function (fileObject, i) {
     var _fileObject$file$name2, _fileObject$file2;
 
-    return /*#__PURE__*/React.createElement(Grid, _extends({
-      xs: 4
-    }, previewGridProps.item, {
+    return /*#__PURE__*/React.createElement(Grid, _extends({}, previewGridProps.item, {
       item: true,
       key: "".concat((_fileObject$file$name2 = (_fileObject$file2 = fileObject.file) === null || _fileObject$file2 === void 0 ? void 0 : _fileObject$file2.name) !== null && _fileObject$file$name2 !== void 0 ? _fileObject$file$name2 : 'file', "-").concat(i),
       className: clsx(classes.imageContainer, previewGridClasses.item)
@@ -390,6 +387,11 @@ var defaultGetPreviewIcon = function defaultGetPreviewIcon(fileObject, classes) 
  * This components creates a Material-UI Dropzone, with previews and snackbar notifications.
  */
 
+
+var _ref5 = /*#__PURE__*/React.createElement(Button, {
+  color: "secondary",
+  variant: "contained"
+}, "Discard & Start Over");
 
 var DropzoneAreaBase = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(DropzoneAreaBase, _React$PureComponent);
@@ -617,40 +619,7 @@ var DropzoneAreaBase = /*#__PURE__*/function (_React$PureComponent) {
       var isMultiple = filesLimit > 1;
       var previewsVisible = showPreviews && fileObjects.length > 0;
       var previewsInDropzoneVisible = showPreviewsInDropzone && fileObjects.length > 0;
-      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Dropzone, _extends({}, dropzoneProps, {
-        accept: acceptFiles,
-        onDropAccepted: this.handleDropAccepted,
-        onDropRejected: this.handleDropRejected,
-        maxSize: maxFileSize,
-        multiple: isMultiple
-      }), function (_ref4) {
-        var getRootProps = _ref4.getRootProps,
-            getInputProps = _ref4.getInputProps,
-            isDragActive = _ref4.isDragActive,
-            isDragReject = _ref4.isDragReject;
-        return /*#__PURE__*/React.createElement("div", getRootProps({
-          className: clsx(classes.root, dropzoneClass, isDragActive && classes.active, !disableRejectionFeedback && isDragReject && classes.invalid)
-        }), /*#__PURE__*/React.createElement("input", getInputProps(inputProps)), /*#__PURE__*/React.createElement("div", {
-          className: classes.textContainer
-        }, /*#__PURE__*/React.createElement(Typography, {
-          variant: "h5",
-          component: "p",
-          className: clsx(classes.text, dropzoneParagraphClass)
-        }, dropzoneText), Icon ? /*#__PURE__*/React.createElement(Icon, {
-          className: classes.icon
-        }) : /*#__PURE__*/React.createElement(CloudUploadIcon, {
-          className: classes.icon
-        })), previewsInDropzoneVisible && /*#__PURE__*/React.createElement(PreviewList$1, {
-          fileObjects: fileObjects,
-          handleRemove: _this2.handleRemove,
-          getPreviewIcon: getPreviewIcon,
-          showFileNames: showFileNames,
-          useChipsForPreview: useChipsForPreview,
-          previewChipProps: previewChipProps,
-          previewGridClasses: previewGridClasses,
-          previewGridProps: previewGridProps
-        }));
-      }), previewsVisible && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Typography, {
+      return /*#__PURE__*/React.createElement(React.Fragment, null, previewsVisible && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Typography, {
         variant: "subtitle1",
         component: "span"
       }, previewText), /*#__PURE__*/React.createElement(PreviewList$1, {
@@ -672,7 +641,40 @@ var DropzoneAreaBase = /*#__PURE__*/function (_React$PureComponent) {
         onClose: this.handleCloseSnackbar,
         variant: snackbarVariant,
         message: snackbarMessage
-      })));
+      })), /*#__PURE__*/React.createElement(Dropzone, _extends({}, dropzoneProps, {
+        accept: acceptFiles,
+        onDropAccepted: this.handleDropAccepted,
+        onDropRejected: this.handleDropRejected,
+        maxSize: maxFileSize,
+        multiple: isMultiple
+      }), function (_ref4) {
+        var getRootProps = _ref4.getRootProps,
+            getInputProps = _ref4.getInputProps,
+            isDragActive = _ref4.isDragActive,
+            isDragReject = _ref4.isDragReject;
+        return /*#__PURE__*/React.createElement("div", getRootProps({
+          className: clsx(classes.root, dropzoneClass, isDragActive && classes.active, !disableRejectionFeedback && isDragReject && classes.invalid)
+        }), previewsInDropzoneVisible && /*#__PURE__*/React.createElement(PreviewList$1, {
+          fileObjects: fileObjects,
+          handleRemove: _this2.handleRemove,
+          getPreviewIcon: getPreviewIcon,
+          showFileNames: showFileNames,
+          useChipsForPreview: useChipsForPreview,
+          previewChipProps: previewChipProps,
+          previewGridClasses: previewGridClasses,
+          previewGridProps: previewGridProps
+        }), /*#__PURE__*/React.createElement("input", getInputProps(inputProps)), /*#__PURE__*/React.createElement("div", {
+          className: classes.textContainer
+        }, dropzoneText ? /*#__PURE__*/React.createElement(Typography, {
+          variant: "h5",
+          component: "p",
+          className: clsx(classes.text, dropzoneParagraphClass)
+        }, dropzoneText) : null, Icon ? /*#__PURE__*/React.createElement(Icon, {
+          className: classes.icon
+        }) : /*#__PURE__*/React.createElement(CloudUploadIcon, {
+          className: classes.icon
+        })));
+      }), fileObjects.length ? _ref5 : null);
     }
   }]);
 
