@@ -382,11 +382,6 @@ var defaultGetPreviewIcon = function defaultGetPreviewIcon(fileObject, classes) 
  */
 
 
-var _ref5 = /*#__PURE__*/createElement(Button, {
-  color: "secondary",
-  variant: "contained"
-}, "Discard & Start Over");
-
 var DropzoneAreaBase = /*#__PURE__*/function (_React$PureComponent) {
   _inherits(DropzoneAreaBase, _React$PureComponent);
 
@@ -668,7 +663,7 @@ var DropzoneAreaBase = /*#__PURE__*/function (_React$PureComponent) {
         }) : /*#__PURE__*/createElement(CloudUploadIcon, {
           className: classes.icon
         })));
-      }), fileObjects.length ? _ref5 : null);
+      }));
     }
   }]);
 

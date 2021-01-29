@@ -319,11 +319,6 @@ class DropzoneAreaBase extends React.PureComponent {
                         </div>
                     )}
                 </Dropzone>
-                {fileObjects.length ? (
-                    <Button color="secondary" variant="contained">
-                        Discard &amp; Start Over
-                    </Button>
-                ) : null}
             </Fragment>
         );
     }
